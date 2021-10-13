@@ -8,10 +8,10 @@ let splitData = data.split("\n");
 router.get("/searchWord", async (req, res) => {
   const { search } = req.query;
   if (splitData.includes(search)) {
-    const data = "The word " + search + " found";
+    const data = "The word " + search + " is present";
     res.send({ data });
   } else {
-    const data = "The word " + search + " not found";
+    const data = "The word " + search + " was not found";
     res.send({ data });
   }
 });
@@ -19,10 +19,11 @@ router.get("/searchWord", async (req, res) => {
 router.get("/addWord", async (req, res) => {
   const { search } = req.query;
   if (splitData.includes(search)) {
-    const data = "The word " + search + " was added";
+    const data = "Cannot add! The word " + search + " is already added";
     res.send({ data });
   } else {
-    const data = "The word " + search + " already present";
+    splitData.push(search);
+    const data = "The word " + search + " was added";
     res.send({ data });
   }
 });
@@ -34,7 +35,7 @@ router.get("/removeWord", async (req, res) => {
     const data = "The word " + search + " is Deleted";
     res.send({ data });
   } else {
-    const data = "There is no such word to delete";
+    const data = "Cannot Delete! No such word found";
     res.send({ data });
   }
 });
