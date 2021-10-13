@@ -29,7 +29,6 @@ router.get("/addWord", async (req, res) => {
 
 router.get("/removeWord", async (req, res) => {
   const { search } = req.query;
-  const search = "abatis";
   if (splitData.includes(search)) {
     splitData = splitData.filter((item) => item !== search);
     const data = "The word " + search + " is Deleted";
