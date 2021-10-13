@@ -23,7 +23,15 @@ router.get("/addWord", async (req, res) => {
     res.send({ data });
   } else {
     splitData.push(search);
-    const data = "The word " + search + " was added";
+    const textFile = splitData.join("\r\n");
+    fs.writeFile("dictionary.txt", textFile, (err) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+    });
+
+    const data = "The word " + `${search}` + " was added";
     res.send({ data });
   }
 });
@@ -32,6 +40,13 @@ router.get("/removeWord", async (req, res) => {
   const { search } = req.query;
   if (splitData.includes(search)) {
     splitData = splitData.filter((item) => item !== search);
+    const textData = splitData.join("\n");
+    fs.writeFile("dictionary.txt", textData, (err) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+    });
     const data = "The word " + search + " is Deleted";
     res.send({ data });
   } else {
